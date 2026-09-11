@@ -1,0 +1,63 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "vs",
+            "displayName": "Visual Studio 2026 (x64, vcpkg)",
+            "generator": "Visual Studio 18 2026",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build/vs",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "ninja",
+            "displayName": "Ninja Multi-Config (x64, vcpkg) - needs a VS dev prompt",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/ninja",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "Configure preset using toolchain file",
+            "displayName": "Configure preset using toolchain file",
+            "description": "Sets Ninja generator, build and install directory",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_TOOLCHAIN_FILE": "",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "vs-debug",
+            "configurePreset": "vs",
+            "configuration": "Debug"
+        },
+        {
+            "name": "vs-release",
+            "configurePreset": "vs",
+            "configuration": "Release"
+        },
+        {
+            "name": "ninja-debug",
+            "configurePreset": "ninja",
+            "configuration": "Debug"
+        },
+        {
+            "name": "ninja-release",
+            "configurePreset": "ninja",
+            "configuration": "Release"
+        }
+    ]
+}
