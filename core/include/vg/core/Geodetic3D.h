@@ -1,16 +1,17 @@
 #pragma once
 
 #include <cmath>
+#include <vg/core/Geodetic2D.h>
 
 namespace vg::core {
     class Geodetic3D {
         public:
-            Geodetic3D(double latitude, double longitude, double altitude)
-                : latitude(latitude), longitude(longitude), altitude(altitude) {}
+            Geodetic3D(double latitude, double longitude, double altitude);
+            Geodetic3D(Geodetic2D surfacePosition, double height);
 
-            double GetLatitude() const { return latitude; }
-            double GetLongitude() const { return longitude; }
-            double GetAltitude() const { return altitude; }
+            double Latitude() const { return latitude; }
+            double Longitude() const { return longitude; }
+            double Altitude() const { return altitude; }
 
             bool Equals(const Geodetic3D &other) const;
 

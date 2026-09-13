@@ -26,6 +26,22 @@
             }
         },
         {
+            "name": "mac",
+            "displayName": "Ninja Multi-Config (macOS, clang, vcpkg)",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/mac",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
             "name": "Configure preset using toolchain file",
             "displayName": "Configure preset using toolchain file",
             "description": "Sets Ninja generator, build and install directory",
@@ -57,6 +73,16 @@
         {
             "name": "ninja-release",
             "configurePreset": "ninja",
+            "configuration": "Release"
+        },
+        {
+            "name": "mac-debug",
+            "configurePreset": "mac",
+            "configuration": "Debug"
+        },
+        {
+            "name": "mac-release",
+            "configurePreset": "mac",
             "configuration": "Release"
         }
     ]

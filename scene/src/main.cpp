@@ -1,4 +1,4 @@
-#include <vg/core/Vector3D.h>
+#include <vg/core/Vector3.h>
 #include <vg/renderer/Window.h>
 
 #include <cstdio>
@@ -7,7 +7,7 @@
 int main() {
     try {
         // WGS84 ellipsoid radii, in metres.
-        const vg::core::Vector3D wgs84(6378137.0, 6378137.0, 6356752.314245);
+        const vg::core::Vector3<double> wgs84(6378137.0, 6378137.0, 6356752.314245);
         std::printf("WGS84 radii magnitude: %.3f m\n", wgs84.Magnitude());
 
         vg::renderer::Window window(1280, 720, "Virtual Globe");
