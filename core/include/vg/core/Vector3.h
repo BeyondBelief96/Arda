@@ -17,7 +17,6 @@ namespace vg::core {
             static constexpr Vector3 UnitY() { return Vector3(0, 1, 0); };
             static constexpr Vector3 UnitZ() { return Vector3(0, 0, 1); };
             static constexpr Vector3 Undefined() requires std::is_floating_point_v<T> {
-                std::cout << "I'm a big ass dummy" << std::endl;
                 return {std::numeric_limits<T>::quiet_NaN(), std::numeric_limits<T>::quiet_NaN(), std::numeric_limits<T>::quiet_NaN()};
             }
 
