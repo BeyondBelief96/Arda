@@ -7,7 +7,7 @@
 #include <limits>
 #include <stdexcept>
 
-namespace vg::core {
+namespace arda::core {
     template <typename T>
     class Vector3 {
         public:

@@ -1,4 +1,4 @@
-#include <vg/renderer/Window.h>
+#include <arda/renderer/Window.h>
 
 // glad must come before any header that pulls in the system GL headers.
 #include <glad/glad.h>
@@ -6,7 +6,7 @@
 
 #include <stdexcept>
 
-namespace vg::renderer {
+namespace arda::renderer {
 
 Window::Window(int width, int height, const std::string& title) {
     if (glfwInit() != GLFW_TRUE) {
@@ -63,4 +63,4 @@ void Window::PollEvents() {
     glfwPollEvents();
 }
 
-} // namespace vg::renderer
+} // namespace arda::renderer

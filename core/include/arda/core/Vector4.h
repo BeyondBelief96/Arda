@@ -1,6 +1,6 @@
 #pragma once
 
-namespace vg::core {
+namespace arda::core {
     template<typename T>
     class Vector4 {
         public:

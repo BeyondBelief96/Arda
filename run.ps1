@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-  Build (unless -NoBuild) and run a VirtualGlobe executable from the repo root.
+  Build (unless -NoBuild) and run an Arda executable from the repo root.
 
 .EXAMPLE
   .\run.ps1                 # Debug, vs preset
@@ -17,7 +17,7 @@ param(
     [ValidateSet('vs', 'ninja')]
     [string]$Preset = 'vs',
 
-    [string]$Target = 'vg_scene',
+    [string]$Target = 'arda_scene',
 
     [switch]$NoBuild,
 

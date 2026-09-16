@@ -1,9 +1,9 @@
 #pragma once
 
 #include <cmath>
-#include <vg/core/Geodetic2D.h>
+#include <arda/core/Geodetic2D.h>
 
-namespace vg::core {
+namespace arda::core {
     class Geodetic3D {
         public:
             Geodetic3D(double latitude, double longitude, double altitude);

@@ -6,7 +6,7 @@
 #include <concepts>
 #include <stdexcept>
 
-namespace vg::core {
+namespace arda::core {
     template <typename T> requires std::is_arithmetic_v<T>
     class Vector2 {
         public:

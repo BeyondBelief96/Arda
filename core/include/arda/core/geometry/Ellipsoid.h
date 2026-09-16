@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include <vg/core/Vector3.h>
-#include <vg/core/Geodetic3D.h>
-#include <vg/core/Geodetic2D.h>
-namespace vg::core {
+#include <arda/core/Vector3.h>
+#include <arda/core/Geodetic3D.h>
+#include <arda/core/Geodetic2D.h>
+namespace arda::core::geometry {
     class Ellipsoid {
         public:
             Ellipsoid() = default;

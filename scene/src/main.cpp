@@ -1,5 +1,5 @@
-#include <vg/core/Vector3.h>
-#include <vg/renderer/Window.h>
+#include <arda/core/Vector3.h>
+#include <arda/renderer/Window.h>
 
 #include <cstdio>
 #include <exception>
@@ -7,10 +7,10 @@
 int main() {
     try {
         // WGS84 ellipsoid radii, in metres.
-        const vg::core::Vector3<double> wgs84(6378137.0, 6378137.0, 6356752.314245);
+        const arda::core::Vector3<double> wgs84(6378137.0, 6378137.0, 6356752.314245);
         std::printf("WGS84 radii magnitude: %.3f m\n", wgs84.Magnitude());
 
-        vg::renderer::Window window(1280, 720, "Virtual Globe");
+        arda::renderer::Window window(1280, 720, "Arda");
         while (!window.ShouldClose()) {
             window.Clear(0.02f, 0.05f, 0.12f);
             window.SwapBuffers();

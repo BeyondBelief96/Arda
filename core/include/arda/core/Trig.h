@@ -1,10 +1,10 @@
 #pragma once
 
 #include <numbers>
-#include <vg/core/Geodetic2D.h>
-#include <vg/core/Geodetic3D.h>
+#include <arda/core/Geodetic2D.h>
+#include <arda/core/Geodetic3D.h>
 
-namespace vg::core {
+namespace arda::core {
 
 class Trig {
 public:
@@ -29,4 +29,4 @@ public:
 };
 
 
-} // namespace vg::core
+} // namespace arda::core

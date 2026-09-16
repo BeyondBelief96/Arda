@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build (unless -n/--no-build) and run a VirtualGlobe executable from the repo root.
+# Build (unless -n/--no-build) and run an Arda executable from the repo root.
 #
 # Examples:
 #   ./run.sh                  # Debug, mac preset
@@ -10,7 +10,7 @@ set -euo pipefail
 
 config="Debug"
 preset="mac"
-target="vg_scene"
+target="arda_scene"
 no_build=0
 
 # First positional arg may be a bare config name, e.g. `./run.sh release`.

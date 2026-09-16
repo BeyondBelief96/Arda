@@ -1,6 +1,6 @@
-#include <vg/core/Geodetic2D.h>
+#include <arda/core/Geodetic2D.h>
 
-namespace vg::core {
+namespace arda::core {
 
     bool Geodetic2D::Equals(const Geodetic2D &other) const
     {

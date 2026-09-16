@@ -1,3 +1,7 @@
-add_library(vg_core src/Geodetic3D.cpp src/Geodetic2D.cpp src/Trig.cpp src/Ellipsoid.cpp
-    include/vg/core/Math.h)
-target_include_directories(vg_core PUBLIC include)
+add_library(arda_core
+    src/Geodetic2D.cpp
+    src/Geodetic3D.cpp
+    src/Trig.cpp
+    src/geometry/Ellipsoid.cpp
+)
+target_include_directories(arda_core PUBLIC include)

@@ -1,6 +1,6 @@
-#include <vg/core/Trig.h>
+#include <arda/core/Trig.h>
 
-namespace vg::core {
+namespace arda::core {
 
     double Trig::DegreesToRadians(double degrees)
     {

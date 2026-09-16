@@ -7,7 +7,7 @@
 // pointer here, so the compiler does not need the definition.
 struct GLFWwindow;
 
-namespace vg::renderer {
+namespace arda::renderer {
 
 class Window {
 public:
@@ -26,4 +26,4 @@ private:
     GLFWwindow* m_handle = nullptr;
 };
 
-} // namespace vg::renderer
+} // namespace arda::renderer

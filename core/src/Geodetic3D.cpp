@@ -1,6 +1,6 @@
-#include <vg/core/Geodetic3D.h>
+#include <arda/core/Geodetic3D.h>
 
-namespace vg::core {
+namespace arda::core {
 
     Geodetic3D::Geodetic3D(double latitude, double longitude, double altitude)
         : latitude(latitude), longitude(longitude), altitude(altitude)

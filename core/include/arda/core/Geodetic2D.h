@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace vg::core {
+namespace arda::core {
     class Geodetic2D {
         public:
             Geodetic2D() = default;

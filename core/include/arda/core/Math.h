@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace vg::core {
+namespace arda::core {
     class Math {
         public:
             static constexpr double Epsilon6 = 1e-6;

@@ -1,10 +1,10 @@
-#include <vg/core/Ellipsoid.h>
-#include <vg/core/Math.h>
+#include <arda/core/geometry/Ellipsoid.h>
+#include <arda/core/Math.h>
 #include <cmath>
 #include <algorithm>
 #include <stdexcept>
 
-namespace vg::core {
+namespace arda::core::geometry {
     Ellipsoid::Ellipsoid(const Vector3<double>& radii) : m_radii(radii) {
         m_radiiSquared = radii.MultiplyComponentWise(radii);
         m_radiiToTheFourth = m_radiiSquared.MultiplyComponentWise(m_radiiSquared);
