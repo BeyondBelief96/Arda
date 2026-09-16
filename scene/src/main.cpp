@@ -1,4 +1,4 @@
-#include <arda/core/Vector3.h>
+#include <arda/core/geometry/Vector3.h>
 #include <arda/renderer/Window.h>
 
 #include <cstdio>

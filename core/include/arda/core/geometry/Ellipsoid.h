@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <arda/core/Vector3.h>
+#include <arda/core/geometry/Vector3.h>
 #include <arda/core/Geodetic3D.h>
 #include <arda/core/Geodetic2D.h>
 namespace arda::core::geometry {
