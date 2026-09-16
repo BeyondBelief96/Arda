@@ -1,9 +1,11 @@
 #pragma once
+#include <algorithm>
 #include <concepts>
 #include <iostream>
 #include <type_traits>
 #include <cmath>
 #include <limits>
+#include <stdexcept>
 
 namespace vg::core {
     template <typename T>
@@ -51,6 +53,27 @@ namespace vg::core {
                 return Vector3(m_x * other.X(), m_y * other.Y(), m_z * other.Z());
             }
 
+            double AngleBetween(const Vector3<T>& other) const {
+                // Clamp so rounding can't push the ratio outside acos's [-1, 1] domain.
+                const double cosAngle = this->Dot(other) / (this->Magnitude() * other.Magnitude());
+                return std::acos(std::clamp(cosAngle, -1.0, 1.0));
+            }
+
+            /**
+             * Uses Rodrigues' rotation formula to rotate this vector by some angle about an arbitrary axis.
+             * @param angle The amount of angle to rotate this vector by.
+             * @param axis The axis about which to perform the rotation.
+             * @returns The rotated vector.
+             */
+            Vector3<T> RotateAboutAxis(const double angle, const Vector3<T>& axis) const {
+                const Vector3<T> k = axis.Normalize();
+
+                const Vector3<T> rParallel = k * this->Dot(k); // Project this vector along the axis of rotation.
+                const Vector3<T> rPerp = *this - rParallel;     // Component perpendicular to the axis.
+
+                return rParallel + rPerp * std::cos(angle) + k.Cross(*this) * std::sin(angle);
+            }
+
             /* Operator Overloads */
 
             Vector3<T> operator+(const Vector3<T>& other) const {
@@ -65,7 +88,7 @@ namespace vg::core {
                 return Vector3(m_x * scalar, m_y * scalar, m_z * scalar);
             }
 
-            Vector3<T> operator*(Vector3<T> other) const {
+            T operator*(const Vector3<T>& other) const {
                 return this->Dot(other);
             }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <vg/core/Vector3.h>
 #include <vg/core/Geodetic3D.h>
 #include <vg/core/Geodetic2D.h>
@@ -94,6 +95,26 @@ namespace vg::core {
              * @return The scaled position on the surface of the ellipsoid.
              */
             Vector3<double> ScaleToGeodeticSurface(const Vector3<double>& position) const;
+
+            /**
+             * Computes a curve between two points p and q along the ellipsoid by the following algorithm:
+             * 1. Treat p and q as vectors from the ellipsoid's center.
+             * 2. Take the cross product of p and q to get the normal of the plane containing both.
+             * 3. Determine the angle theta between p and q within that plane.
+             * 4. Split theta into ceil(theta / granularity) equal steps, so no step exceeds granularity.
+             * 5. Compute each interior point by rotating p about the plane normal by a multiple of the step,
+             *    then scaling it to the geocentric surface.
+             *
+             * @param p The starting point for the curve, assumed to lie on the ellipsoid's surface.
+             * @param q The ending point for the curve, assumed to lie on the ellipsoid's surface.
+             * @param granularity The maximum angle in radians between consecutive points.
+             * @return The points of the curve, starting with p and ending with q. If p and q point in
+             *         the same direction, only p and q are returned.
+             * @throws std::invalid_argument If granularity is not a positive, finite value, if p or q is
+             *         zero or non-finite, if p and q are antipodal (the plane is undefined), or if
+             *         granularity would produce more than 1,000,000 segments.
+             */
+            std::vector<Vector3<double>> ComputeCurve(const Vector3<double>& p, const Vector3<double>& q, double granularity) const;
         private:
             Vector3<double> m_radii;
             Vector3<double> m_radiiSquared;

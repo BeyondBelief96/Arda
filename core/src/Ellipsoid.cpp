@@ -1,6 +1,8 @@
 #include <vg/core/Ellipsoid.h>
-
+#include <vg/core/Math.h>
 #include <cmath>
+#include <algorithm>
+#include <stdexcept>
 
 namespace vg::core {
     Ellipsoid::Ellipsoid(const Vector3<double>& radii) : m_radii(radii) {
@@ -123,5 +125,53 @@ namespace vg::core {
         } while (std::abs(s) > 1e-10);
 
         return Vector3<double> {position.X() / da, position.Y() / db, position.Z() / dc};
+    }
+
+    std::vector<Vector3<double>> Ellipsoid::ComputeCurve(const Vector3<double>& p, const Vector3<double>& q, double granularity) const
+    {
+        if(!(granularity > 0.0) || !std::isfinite(granularity)) {
+            throw std::invalid_argument("granularity must be a positive, finite angle (radians)");
+        }
+
+        const double pMagnitude = p.Magnitude();
+        const double qMagnitude = q.Magnitude();
+        if(!(pMagnitude > 0.0) || !(qMagnitude > 0.0) || !std::isfinite(pMagnitude) || !std::isfinite(qMagnitude)) {
+            throw std::invalid_argument("p and q must be finite, non-zero positions");
+        }
+
+        // Work with unit vectors so tolerances don't depend on ellipsoid size
+        const Vector3<double> pUnit = p.Normalize();
+        const Vector3<double> qUnit = q.Normalize();
+
+        const Vector3<double> normal = pUnit.Cross(qUnit);
+        const double sinTheta = normal.Magnitude();
+        const double cosTheta = pUnit.Dot(qUnit);
+        const double theta = std::atan2(sinTheta, cosTheta); // [0, pi], accurate near both ends.
+
+        if(sinTheta <= Math::Epsilon10) {
+            if(cosTheta > 0.0) {
+                return {p , q}; // same direction, nothing to subdivide.
+            }
+            throw std::invalid_argument("p and q are antipodal; the curve's plane is undefined.");
+        }
+
+        const double segmentCount = std::ceil(theta / granularity);
+        if(segmentCount > 1'000'000.0) {
+            throw std::invalid_argument("granularity is too small for the angle between p and q.");
+        }
+
+        const int segments = std::max(1, static_cast<int>(segmentCount));
+        const double step = theta / segments;
+
+        std::vector<Vector3<double>> positions{};
+        positions.reserve(segments + 1);
+        positions.push_back(p);
+        for(int i = 1; i < segments; i++) {
+            const double phi = i * step;
+            Vector3<double> rotated =  p.RotateAboutAxis(phi, normal);
+            positions.push_back(ScaleToGeocentricSurface(rotated));
+        }
+        positions.push_back(q);
+        return positions;
     }
 }

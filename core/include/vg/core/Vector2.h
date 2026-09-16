@@ -1,8 +1,10 @@
 #pragma once
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 #include <concepts>
+#include <stdexcept>
 
 namespace vg::core {
     template <typename T> requires std::is_arithmetic_v<T>
@@ -20,9 +22,9 @@ namespace vg::core {
 
             constexpr T X() const { return m_x; };
             constexpr T Y() const { return m_y; };
-            
+
             T Magnitude() const { return std::sqrt(m_x * m_x + m_y * m_y); }
-            
+
             T Dot(const Vector2<T>& other) const {
               return m_x * other.X() + m_y * other.Y();
             }
@@ -38,6 +40,18 @@ namespace vg::core {
 
             Vector2<T> MultiplyComponentWise(const Vector2<T>& other) const {
                 return Vector2(m_x * other.X(), m_y * other.Y());
+            }
+
+            double AngleBetween(const Vector2<T>& other) const {
+                // Clamp so rounding can't push the ratio outside acos's [-1, 1] domain.
+                const double cosAngle = this->Dot(other) / (this->Magnitude() * other.Magnitude());
+                return std::acos(std::clamp(cosAngle, -1.0, 1.0));
+            }
+
+            Vector2<T> Rotate(const double angle) const {
+                const double cosAngle = std::cos(angle);
+                const double sinAngle = std::sin(angle);
+                return Vector2<T>(static_cast<T>(this->X() * cosAngle - this->Y() * sinAngle), static_cast<T>(this->X() * sinAngle + this->Y() * cosAngle));
             }
 
             /* Operator Overloads */
