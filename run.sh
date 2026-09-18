@@ -2,14 +2,19 @@
 # Build (unless -n/--no-build) and run an Arda executable from the repo root.
 #
 # Examples:
-#   ./run.sh                  # Debug, mac preset
-#   ./run.sh release          # Release, mac preset
+#   ./run.sh                  # Debug, mac preset (vs preset on Windows/Git Bash)
+#   ./run.sh release          # Release
+#   ./run.sh -t arda_tests    # build and run the unit tests
+#   ./run.sh -t arda_viz -- out.svg
 #   ./run.sh -p mac -c release
 #   ./run.sh -n                # just launch what's already built
 set -euo pipefail
 
 config="Debug"
 preset="mac"
+case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) preset="vs" ;;
+esac
 target="arda_scene"
 no_build=0
 
@@ -51,6 +56,7 @@ if [[ "$no_build" -eq 0 ]]; then
 fi
 
 exe="$binary_dir/bin/$config/$target"
+[[ -f "$exe.exe" ]] && exe="$exe.exe"
 if [[ ! -x "$exe" ]]; then
     echo "Not found: $exe" >&2
     exit 1

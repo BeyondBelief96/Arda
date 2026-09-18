@@ -10,7 +10,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
+find_package(doctest CONFIG REQUIRED)
 
 add_subdirectory(core)
 add_subdirectory(renderer)
 add_subdirectory(scene)
+add_subdirectory(tools/viz)
+
+enable_testing()
+add_subdirectory(tests)

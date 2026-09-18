@@ -1,15 +1,13 @@
 #include <arda/core/geometry/Vector3.h>
 #include <arda/renderer/Window.h>
-
+#include <arda/core/geometry/Ellipsoid.h>
 #include <cstdio>
 #include <exception>
 
+using arda::core::geometry::Ellipsoid;
 int main() {
     try {
-        // WGS84 ellipsoid radii, in metres.
-        const arda::core::Vector3<double> wgs84(6378137.0, 6378137.0, 6356752.314245);
-        std::printf("WGS84 radii magnitude: %.3f m\n", wgs84.Magnitude());
-
+        Ellipsoid wgs84 = Ellipsoid::WGS84();
         arda::renderer::Window window(1280, 720, "Arda");
         while (!window.ShouldClose()) {
             window.Clear(0.02f, 0.05f, 0.12f);
